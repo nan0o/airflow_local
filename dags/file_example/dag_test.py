@@ -11,10 +11,16 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 
+# Guardo en my_dir el path absoluto hasta el directorio donde se encuentra el dag
 my_dir = os.path.dirname(os.path.abspath(__file__))
+# Sumo al path previo el nombre del archivo para abrirlo
 configuration_file_path = os.path.join(my_dir, "test.json")
+# Al tener el path apuntando al archivo, lo puedo abrir con with open
 with open(configuration_file_path) as json_file:
     configuration = json.load(json_file)
+
+print(configuration)
+
 
 default_args= {
         'depends_on_past': False,
@@ -38,7 +44,7 @@ default_args= {
     }
 
 with DAG(
-    'dag_name',  #El nombre que se va a ver en la UI
+    'dag_tutorial',  #El nombre que se va a ver en la UI
     default_args=default_args, # Estos argumentos se van a pasar a cada Operator
     description='Un DAG tutorial',
     schedule_interval=timedelta(days=1),
@@ -60,16 +66,20 @@ with DAG(
         retries=3,
     )
 
-    def extract_dolar_price(url):
-        json_response = requests.get(url[0]).json()
+    def extract_dolar_price(url, **kwargs):
+        print(url)
+        print(kwargs)
+        json_response = requests.get(url).json()
         for index, type in enumerate(('Oficial','Blue')):
-            buy = json_response[index]['casa']['compra'][:-1]
-            sell = json_response[index]['casa']['venta'][:-1]
-            return f"{type} | {buy} | {sell}"
+            buyer = json_response[index]['casa']['compra'][:-1]
+            seller = json_response[index]['casa']['venta'][:-1]
+            print(f"{type} | {buyer} | {seller}")
+        return
 
     t3 = PythonOperator(
+        task_id="extract_dolar_price",
         python_callable=extract_dolar_price,
-        op_args=configuration["url"]
-    )
+        op_kwargs=configuration,
+        )
 
     t1 >> [t2, t3]

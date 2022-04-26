@@ -1,3 +1,8 @@
+# Ignorar carpetas de volumenes de docker
 *logs/
 *plugins/
+# Ignorar pycaches
 */__pycache__
+*/*/__pycache__
+# Ignorar entorno virtual Python
+env
