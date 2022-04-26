@@ -14,7 +14,7 @@ y seleccionar el cartel azul **Docker Desktop for Windows**
 
 ![enablewsl](./resources/enablewsl.png)
 
-- En caso que salga (hardware problem) se debe reiniciar la computadora,
+- En caso que salga se debe reiniciar la computadora,
 entrar a la BIOS y activar Hardware assisted virtualization. Si tienen la PC en español
 esta opción se llama de forma diferente, generalmente se identifica con la palabra "virtualización"
 y podemos ver que dice Desactivado. En una laptop HP yo tuve que apretar F10.
@@ -22,7 +22,7 @@ y podemos ver que dice Desactivado. En una laptop HP yo tuve que apretar F10.
 ![hardwareassisvirtual](./resources/hardwareassisvirtual.png)
 
 - En caso de que Docker Desktop tire el error de WSL 2 installation is incomplete, descargar del [Siguiente link](https://aka.ms/wsl2kernel)
-la actualización del kernel para el subsistema de Linux y reiniciar el sistema.
+la actualización del kernel para el subsistema de Linux.
 
 ![wsl2kernelupdate](./resources/wsl2kernelupdate.png)
 
