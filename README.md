@@ -3,6 +3,7 @@
  de Airflow de forma local de la forma más rápida y sencilla
  para usuarios de Windows
 
+
 ## Instalar Docker for Desktop
 
 - Ingresar al [Siguiente Link](https://docs.docker.com/desktop/windows/install/)
@@ -26,6 +27,18 @@ la actualización del kernel para el subsistema de Linux.
 
 ![wsl2kernelupdate](./resources/wsl2kernelupdate.png)
 
+- Al finalizar estos pasos, como nuestra cuenta de usuario es diferente a la de administrador, nos saldrá
+este error:
+```
+The current user is not in the 'docker-users' group. Add yourself to the 'docker-users' group and then log out and back in to Windows.
+```
+
+- Abrir "Command Prompt" como administrador y ejecutar el siguiente comando (Al abrir Command Prompt
+podemos ver el valor de \<DOMAIN> por defecto **antes** de ingresar nuestras credenciales de administrador):
+```
+net localgroup docker-users <DOMAIN>\<username> /add
+```
+- "Sign out" para cerrar nuestra sesión. Ingresar de nuevo en la pantalla de inicio.
 
 
 ## Ejecutar los comandos dentro del directorio del proyecto
