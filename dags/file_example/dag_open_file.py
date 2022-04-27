@@ -66,9 +66,9 @@ with DAG(
         retries=3,
     )
 
-    def extract_dolar_price(url, **kwargs):
+    def extract_dolar_price(url, **context):
         print(url)
-        print(kwargs)
+        print(context)
         json_response = requests.get(url).json()
         for index, type in enumerate(('Oficial','Blue')):
             buyer = json_response[index]['casa']['compra'][:-1]
