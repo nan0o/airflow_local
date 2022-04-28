@@ -47,7 +47,7 @@ with DAG(
     'dag_tutorial',  #El nombre que se va a ver en la UI
     default_args=default_args, # Estos argumentos se van a pasar a cada Operator
     description='Un DAG tutorial',
-    schedule_interval=timedelta(days=1),
+    schedule_interval='10 * * * *',
     start_date=datetime(2021, 1, 1),
     catchup=False, # Importante ya que va a intentar schedulear desde el 2021
     # hasta llegar al 2022 cada un día 
@@ -66,7 +66,7 @@ with DAG(
         retries=3,
     )
 
-    def extract_dolar_price(url, **context):
+    def extract_dolar(url, **context):
         print(url)
         print(context)
         json_response = requests.get(url).json()
@@ -78,7 +78,7 @@ with DAG(
 
     t3 = PythonOperator(
         task_id="extract_dolar_price",
-        python_callable=extract_dolar_price,
+        python_callable=extract_dolar,
         op_kwargs=configuration,
         )
 

@@ -15,20 +15,7 @@ y seleccionar el cartel azul **Docker Desktop for Windows**
 
 ![enablewsl](./resources/enablewsl.png)
 
-- En caso que salga se debe reiniciar la computadora,
-entrar a la BIOS y activar Hardware assisted virtualization. Si tienen la PC en español
-esta opción se llama de forma diferente, generalmente se identifica con la palabra "virtualización"
-y podemos ver que dice Desactivado. En una laptop HP yo tuve que apretar F10.
-
-![hardwareassisvirtual](./resources/hardwareassisvirtual.png)
-
-- En caso de que Docker Desktop tire el error de WSL 2 installation is incomplete, descargar del [Siguiente link](https://aka.ms/wsl2kernel)
-la actualización del kernel para el subsistema de Linux.
-
-![wsl2kernelupdate](./resources/wsl2kernelupdate.png)
-
-- Al finalizar estos pasos, como nuestra cuenta de usuario es diferente a la de administrador, nos saldrá
-este error:
+- En caso de que nos salga el siguiente error:
 ```
 The current user is not in the 'docker-users' group. Add yourself to the 'docker-users' group and then log out and back in to Windows.
 ```
@@ -38,7 +25,20 @@ podemos ver el valor de \<DOMAIN> por defecto **antes** de ingresar nuestras cre
 ```
 net localgroup docker-users <DOMAIN>\<username> /add
 ```
-- "Sign out" para cerrar nuestra sesión. Ingresar de nuevo en la pantalla de inicio.
+- "Sign out" para cerrar nuestra sesión. Ingresar de nuevo en la pantalla de inicio (también se puede reiniciar).
+
+
+- En caso de que Docker Desktop tire el error de WSL 2 installation is incomplete, descargar del [Siguiente link](https://aka.ms/wsl2kernel)
+la actualización del kernel para el subsistema de Linux.
+
+![wsl2kernelupdate](./resources/wsl2kernelupdate.png)
+
+- En caso que salga el error de Assisted Hardware virtualization se debe reiniciar la computadora,
+entrar a la BIOS y activar Hardware assisted virtualization. Si tienen la PC en español
+esta opción se llama de forma diferente, generalmente se identifica con la palabra "virtualización"
+y podemos ver que dice Desactivado. En una laptop HP yo tuve que apretar F10.
+
+![hardwareassisvirtual](./resources/hardwareassisvirtual.png)
 
 
 ## Ejecutar los comandos dentro del directorio del proyecto
@@ -66,3 +66,13 @@ Para levantar el servicio, simplemente ejecutar
 docker-compose up
 ```
 Esperar a que se levanten los servicios e ingresar a la web en http://localhost:8080 ó http://127.0.0.1:8080
+
+Para detener Airflow, ejecutar en la terminal:
+```
+docker-compose down
+```
+Cada vez que abrimos Docker Desktop, se aloca ~2GB de memoria
+para usar el backend de Windows Subsystem for Linux. Para detenerlo:
+```
+wsl --shutdown
+```
